@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\pojo\UserDao;
 use Yii;
 use yii\base\Model;
 
