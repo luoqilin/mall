@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\pojo\UserDao;
+use app\pojo\User;
 use Yii;
 use yii\base\Model;
 
@@ -33,6 +33,15 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'username' => '用户名',
+            'password' => '密码',
+            'rememberMe' => '记住我'
         ];
     }
 

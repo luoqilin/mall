@@ -1,8 +1,9 @@
 <?php
 
-namespace app\models;
+namespace app\pojo;
 
 use Yii;
+use yii\base\Exception;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -73,6 +74,12 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        $password_hash = hash('md5', $this->password);
+        try {
+            $password_hash = Yii::$app->security->generatePasswordHash($this->password);
+        } catch (Exception $e) {
+        }
+
+        return Yii::$app->security->validatePassword($password, $password_hash);
     }
 }

@@ -32,13 +32,14 @@ class ContactForm extends Model
         ];
     }
 
-    /**
-     * @return array customized attribute labels
-     */
     public function attributeLabels()
     {
         return [
-            'verifyCode' => 'Verification Code',
+            'name' => '姓名',
+            'email' => '邮箱',
+            'subject' => '主题',
+            'body' => '正文',
+            'verifyCode' => '验证码'
         ];
     }
 
