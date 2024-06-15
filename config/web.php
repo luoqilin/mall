@@ -19,7 +19,8 @@ $config = [
             'cookieValidationKey' => '3dpEuHOFJqZ8BcykDosbALgfuzzwRNAH',
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+             'class' => 'yii\caching\FileCache',
+             // 'class' => 'yii\redis\Cache',
         ],
         'user' => [
             'identityClass' => 'app\pojo\User',

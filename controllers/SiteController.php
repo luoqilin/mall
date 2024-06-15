@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Country;
 use app\models\EntryForm;
+use app\models\UploadForm;
 use Yii;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
@@ -12,6 +13,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
@@ -129,25 +131,19 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionSay($message = 'Hello')
+    public function actionUpload()
     {
-        return $this->render('say', ['message' => $message]);
-    }
+        $model = new UploadForm();
 
-    public function actionEntry()
-    {
-        $model = new EntryForm;
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            // 验证 $model 收到的数据
-
-            // 做些有意义的事 ...
-
-            return $this->render('entry-confirm', ['model' => $model]);
-        } else {
-            // 无论是初始化显示还是数据验证错误
-            return $this->render('entry', ['model' => $model]);
+        if (Yii::$app->request->isPost) {
+            $model->uploadFile = UploadedFile::getInstances($model, 'uploadFile');
+            if ($model->upload()) {
+                // 文件上传成功
+                return '上传成功';
+            }
         }
+
+        return $this->render('upload', ['model' => $model]);
     }
 
 }
